@@ -38,6 +38,7 @@ GameManager.prototype.setup = function () {
   this.grid        = new Grid(this.size);
 
   this.score       = 0;
+  this.nextTile    = this.randomTile();
   this.over        = false;
   this.won         = false;
   this.keepPlaying = false;
@@ -56,12 +57,18 @@ GameManager.prototype.addStartTiles = function () {
   }
 };
 
+// Generates tile value
+GameManager.prototype.randomTile = function () {
+  var rand = Math.random();
+  return rand < 0.7 ? 2 : (rand < 0.9 ? 4 : 8);
+};
+
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var rand = Math.random()
-    var value = rand < 0.7 ? 2 : (rand < 0.9 ? 4 : 8);
-    var tile = new Tile(this.grid.randomAvailableCell(), value);
+    var tile = new Tile(this.grid.randomAvailableCell(), this.nextTile);
+    this.nextTile = this.randomTile();
+    this.grid.falling = tile;
     window.timeOut = 700;
     if(window.moveObj) {
       clearTimeout(window.autoFall);
@@ -81,6 +88,7 @@ GameManager.prototype.actuate = function () {
 
   this.actuator.actuate(this.grid, {
     score:      this.score,
+    tileValue:  this.nextTile,
     over:       this.over,
     won:        this.won,
     bestScore:  this.scoreManager.get(),

@@ -2,6 +2,7 @@ function HTMLActuator() {
   this.tileContainer    = document.querySelector(".tile-container");
   this.scoreContainer   = document.querySelector(".score-container");
   this.bestContainer    = document.querySelector(".best-container");
+  this.nextTileContainer    = document.querySelector(".next-tile-container");
   this.messageContainer = document.querySelector(".game-message");
   this.sharingContainer = document.querySelector(".score-sharing");
 
@@ -22,6 +23,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
       });
     });
 
+    self.updateNextTile(metadata.tileValue);
     self.updateScore(metadata.score);
     self.updateBestScore(metadata.bestScore);
 
@@ -123,6 +125,11 @@ HTMLActuator.prototype.updateScore = function (score) {
 
     this.scoreContainer.appendChild(addition);
   }
+};
+
+HTMLActuator.prototype.updateNextTile = function (nextTile) {
+    this.clearContainer(this.nextTileContainer);
+    this.nextTileContainer.textContent = nextTile;
 };
 
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
