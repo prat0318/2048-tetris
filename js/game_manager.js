@@ -11,6 +11,8 @@ function GameManager(size, InputManager, Actuator, ScoreManager) {
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   this.setup();
+  this._16384 = true; this._8192= true; 
+  this._4096 = true; this._2048 = true;
 }
 
 // Restart the game
@@ -59,6 +61,10 @@ GameManager.prototype.addStartTiles = function () {
 
 // Generates tile value
 GameManager.prototype.randomTile = function () {
+  if(this._16384) { this._16384 = false; return 16384; }
+  else if(this._8192) { this._8192 = false; return 8192; }
+  else if(this._4096) { this._4096 = false; return 4096; }
+  else if(this._2048) { this._2048 = false; return 2048; }
   var rand = Math.random();
   return rand < 0.7 ? 2 : (rand < 0.9 ? 4 : 8);
 };
