@@ -147,6 +147,8 @@
     }
   }
 
+  window.onblur = function () { console.log("Game paused because user switched tabs!"); pause(); }
+
   function setLevel(val) {
     switch(val) {
       case 0: window.FACTOR = window.EASY;
