@@ -147,7 +147,13 @@
     }
   }
 
-  window.onblur = function () { console.log("Game paused because user switched tabs!"); pause(); }
+  window.onblur = function() {
+      var elem = document.getElementById("Pause");
+      if ( elem.innerHTML == "||" ) {
+          console.log("Game paused");
+          pause();
+      }
+  }
 
   function setLevel(val) {
     switch(val) {
